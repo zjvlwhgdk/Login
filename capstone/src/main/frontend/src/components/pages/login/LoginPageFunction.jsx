@@ -46,18 +46,17 @@ export const LoginPageFunction = () => {
         e.preventDefault();
 
         try {
-            const loginResponse = await axios.get("/api/login", {
-                params:{
-                    email: email,
-                    pw: pw
-                }
+            const loginResponse = await axios.post("/api/login", {
+              email: email,
+              pw: pw
             });
 
-            if(loginResponse.data === 200) { // 백엔드로부터 받기
+
+            if(loginResponse.status === 200) { // 백엔드로부터 받기
                 alert("로그인 성공");
                 // 메인페이지로 이동
             }
-            else if(loginResponse.data === 401) { // 백엔드로부터 받기
+            else if(loginResponse.status === 401) { // 백엔드로부터 받기
                 alert("아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.")
                 // 로그인 화면 유지
             }

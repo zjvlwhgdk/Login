@@ -97,18 +97,18 @@ export const SignUpPageFunction = () => {
 
         try {
             // 이메일 중복 검사
-            const emailResponse = await axios.get('/api/checkEmail',{
-                params:{
+            const emailResponse = await axios.post('/api/checkEmail',{
+                data:{
                     email: signUpForm.email
                 }
             });
             // console.log(response);
 
-            if(emailResponse.data === 201) { // 백엔드에서 사용 가능한 아이디일 경우 : (숫자) 반환
+            if(emailResponse.status === 201) { // 백엔드에서 사용 가능한 아이디일 경우 : (숫자) 반환
                 setErrorMessage((prevState) =>
                     ({...prevState, emailExistenceMessage: "사용 가능한 이메일입니다."}));
             }
-            else if(emailResponse.data === 409) { // 백엔드에서 사용 불가능한 아이디일 경우 : (숫자) 반환
+            else if(emailResponse.status === 409) { // 백엔드에서 사용 불가능한 아이디일 경우 : (숫자) 반환
                 setErrorMessage((prevState) =>
                     ({...prevState,emailExistenceMessage: "이미 사용 중인 이메일입니다."}));
             }
@@ -178,7 +178,7 @@ export const SignUpPageFunction = () => {
                 nickName: signUpForm.nickName
             });
 
-            if(signUpData.data===201) {
+            if(signUpData.status===201) {
                 // 서버에서 잘 도착했다는 응답 코드 추가
                 alert("회원가입을 성공하였습니다.");
             }

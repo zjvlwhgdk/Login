@@ -11,9 +11,9 @@ public class User {
     @Column
     private String email;
     @Column
-    private String password;
+    private String pw;
     @Column
-    private String userName;
+    private String name;
     @Column
     private String birth;
     @Column
@@ -27,12 +27,12 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPw() {
+        return pw;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
     public String getBirth() {
@@ -45,10 +45,10 @@ public class User {
 
     public User(){};
 
-    public User(String email, String password, String userName, String birth, String nickName) {
+    public User(String email, String pw, String name, String birth, String nickName) {
         this.email = email;
-        this.password = password;
-        this.userName = userName;
+        this.pw = pw;
+        this.name = name;
         this.birth = birth;
         this.nickName = nickName;
     }

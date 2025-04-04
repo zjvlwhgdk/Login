@@ -20,16 +20,34 @@ public class UserLogInImpl implements UserLogIn {
     }
 
     @Override
-    public boolean logIn(UserDto userDto) {
-        if (userRepository.existsByEmail(userDto.getEmail())) {
-            User loginUser = userRepository.findByEmail(userDto.getEmail());
+    public boolean logIn(String email, String pw) {
+        if (userRepository.existsByEmail(email)) {
+            User loginUser = userRepository.findByEmail(email);
             if (loginUser != null) {
                 // 암호화된 비밀번호와 사용자가 입력한 비밀번호 비교
-                if (passwordEncoder.matches(userDto.getPassword(), loginUser.getPassword())) {
+                if (passwordEncoder.matches(pw, loginUser.getPw())) {
                     return true;
                 }
             }
         }
         return false;
     }
-}
+
+    @Override
+    public UserDto getUserDto(String email) {
+        User user = userRepository.findByEmail(email);
+        return toUserDto(user);
+    }
+
+    @Override
+    public UserDto toUserDto(User user) {
+            return new UserDto(
+                    user.getEmail(),
+                    user.getPw(),
+                    user.getName(),
+                    user.getBirth(),
+                    user.getNickName()
+            );
+        }
+    }
+

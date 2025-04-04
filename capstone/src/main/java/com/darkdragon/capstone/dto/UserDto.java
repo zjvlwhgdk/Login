@@ -3,15 +3,15 @@ package com.darkdragon.capstone.dto;
 public class UserDto {
     long userId;
     String email;
-    String password;
-    String userName;
+    String pw;
+    String name;
     String birth;
     String nickName;
 
-    public UserDto(String email, String password, String userName, String birth, String nickName) {
+    public UserDto(String email, String pw, String name, String birth, String nickName) {
         this.email = email;
-        this.password = password;
-        this.userName = userName;
+        this.pw = pw;
+        this.name = name;
         this.birth = birth;
         this.nickName = nickName;
     }
@@ -24,12 +24,12 @@ public class UserDto {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -40,12 +40,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPw() {
+        return pw;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 
     public String getBirth() {

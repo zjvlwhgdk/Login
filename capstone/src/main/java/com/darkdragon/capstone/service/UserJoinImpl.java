@@ -25,14 +25,14 @@ public class UserJoinImpl implements UserJoin {
     public boolean join(UserDto userDto) {
         if(userRepository.existsByEmail(userDto.getEmail())) {
             return false;
-        }
-        else {
-            String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
+        } else {
+            String encryptedPassword = passwordEncoder.encode(userDto.getPw());
+            userDto.setPw(encryptedPassword);
             userRepository.save(toUserEntity(userDto));
-            userDto.setPassword(encryptedPassword);
             return true;
         }
     }
+
 
     @Override
     public boolean checkUser(String email) {
@@ -43,8 +43,8 @@ public class UserJoinImpl implements UserJoin {
     private User toUserEntity(UserDto userDto) {
         return new User(
                 userDto.getEmail(),
-                userDto.getPassword(),
-                userDto.getUserName(),
+                userDto.getPw(),
+                userDto.getName(),
                 userDto.getBirth(),
                 userDto.getNickName()
         );
