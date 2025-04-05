@@ -98,23 +98,17 @@ export const SignUpPageFunction = () => {
             });
 
             if (emailResponse.status === 201) {
-                setErrorMessage((prevState) => ({
-                    ...prevState,
-                    emailExistenceMessage: "사용 가능한 이메일입니다."
-                }));
+                alert("사용 가능한 이메일입니다.");
+
             }
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                setErrorMessage((prevState) => ({
-                    ...prevState,
-                    emailExistenceMessage: "이미 사용 중인 이메일입니다."
-                }));
+                 alert("이미 사용 중인 이메일입니다.");
+
             } else {
                 console.error("서버 요청 오류:", error);
-                setErrorMessage((prevState) => ({
-                    ...prevState,
-                    emailExistenceMessage: "오류가 발생했습니다."
-                }));
+                alert("오류가 발생했습니다.");
+
             }
         }
     };
