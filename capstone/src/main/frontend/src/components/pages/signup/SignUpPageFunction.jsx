@@ -85,7 +85,7 @@ export const SignUpPageFunction = () => {
         else {
             setIsValid(prevState => ({ ...prevState, isEmail: true }));
             setErrorMessage(prevState => ({...prevState, emailErrorMessage: ''}));
-            checkEmail();
+
         }
     };
 
@@ -102,7 +102,7 @@ export const SignUpPageFunction = () => {
 
             }
         } catch (error) {
-            if (error.response && error.response.status === 409) {
+            if (error.response.status === 409 && error.response) {
                  alert("이미 사용 중인 이메일입니다.");
 
             } else {
