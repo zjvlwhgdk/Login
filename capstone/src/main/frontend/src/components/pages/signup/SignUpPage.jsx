@@ -20,6 +20,7 @@ export const SignUpPage = ({ signUpForm, handlerChange, errorMessage, checkEmail
                 type="button"
                 onClick={checkEmail}
             >중복확인</button>
+
             <div className="content">
                 <label className="input-label">비밀번호</label>
                 <input

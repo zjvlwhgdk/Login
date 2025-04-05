@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -24,8 +26,9 @@ public class UserController {
     }
 
     @PostMapping("/checkEmail")
-    public ResponseEntity<Void> checkEmail(@RequestParam String email){
-        if(userJoinService.checkUser(email)){
+    public ResponseEntity<Void> checkEmail(@RequestBody Map<String, String> payload) {
+        String email = payload.get("email");
+        if (!userJoinService.checkUser(email)) {
             return ResponseEntity.status(HttpStatus.CREATED).build();  // 201
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();  // 409
