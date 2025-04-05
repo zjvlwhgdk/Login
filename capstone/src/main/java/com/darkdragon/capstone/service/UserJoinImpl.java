@@ -1,7 +1,6 @@
 package com.darkdragon.capstone.service;
 
 import com.darkdragon.capstone.dto.UserDto;
-import com.darkdragon.capstone.entity.User;
 import com.darkdragon.capstone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,10 +13,12 @@ public class UserJoinImpl implements UserJoin {
     private final PasswordEncoder passwordEncoder;
 
 
+
     @Autowired
     public UserJoinImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
 
 
@@ -28,7 +29,7 @@ public class UserJoinImpl implements UserJoin {
         } else {
             String encryptedPassword = passwordEncoder.encode(userDto.getPw());
             userDto.setPw(encryptedPassword);
-            userRepository.save(toUserEntity(userDto));
+            userRepository.save(userDto.toUserEntity(userDto));
             return true;
         }
     }
@@ -40,13 +41,5 @@ public class UserJoinImpl implements UserJoin {
     }
 
 
-    private User toUserEntity(UserDto userDto) {
-        return new User(
-                userDto.getEmail(),
-                userDto.getPw(),
-                userDto.getName(),
-                userDto.getBirth(),
-                userDto.getNickName()
-        );
-    }
+
 }

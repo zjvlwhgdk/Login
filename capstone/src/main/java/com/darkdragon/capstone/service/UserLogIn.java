@@ -8,6 +8,5 @@ public interface UserLogIn {
     boolean logIn(String email, String pw);
     UserDto getUserDto(String email);
 
-    UserDto toUserDto(User user);
 
 }

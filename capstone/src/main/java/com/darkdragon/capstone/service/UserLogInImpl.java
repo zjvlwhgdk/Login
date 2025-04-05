@@ -13,10 +13,13 @@ public class UserLogInImpl implements UserLogIn {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
+
     @Autowired
     public UserLogInImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
+
     }
 
     @Override
@@ -36,18 +39,10 @@ public class UserLogInImpl implements UserLogIn {
     @Override
     public UserDto getUserDto(String email) {
         User user = userRepository.findByEmail(email);
-        return toUserDto(user);
+        return user.toUserDto(user);
     }
 
-    @Override
-    public UserDto toUserDto(User user) {
-            return new UserDto(
-                    user.getEmail(),
-                    user.getPw(),
-                    user.getName(),
-                    user.getBirth(),
-                    user.getNickName()
-            );
-        }
+
+
     }
 

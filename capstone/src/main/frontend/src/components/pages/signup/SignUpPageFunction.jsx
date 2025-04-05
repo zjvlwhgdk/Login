@@ -92,13 +92,14 @@ export const SignUpPageFunction = () => {
 
     // 이메일 중복 검사
     const checkEmail = async () => {
+    e,preventDefault();
 
         try {
             // 이메일 중복 검사
             const emailResponse = await axios.post('/api/checkEmail',{
-                data:{
+
                     email: signUpForm.email
-                }
+
             });
 
             if(emailResponse.status === 201) {

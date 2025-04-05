@@ -1,5 +1,7 @@
 package com.darkdragon.capstone.dto;
 
+import com.darkdragon.capstone.entity.User;
+
 public class UserDto {
     long userId;
     String email;
@@ -62,5 +64,20 @@ public class UserDto {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public User toUserEntity(UserDto userDto) {
+        String nickName = userDto.getNickName();
+        if (nickName == null || nickName.trim().isEmpty()) {
+            nickName = userDto.getName(); // 비어있으면 이름으로 대체
+        }
+
+        return new User(
+                userDto.getEmail(),
+                userDto.getPw(),
+                userDto.getName(),
+                userDto.getBirth(),
+                nickName
+        );
     }
 }

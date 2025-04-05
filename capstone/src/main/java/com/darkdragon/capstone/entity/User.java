@@ -1,5 +1,6 @@
 package com.darkdragon.capstone.entity;
 
+import com.darkdragon.capstone.dto.UserDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -51,6 +52,16 @@ public class User {
         this.name = name;
         this.birth = birth;
         this.nickName = nickName;
+    }
+
+    public UserDto toUserDto(User user) {
+        return new UserDto(
+                user.getEmail(),
+                user.getPw(),
+                user.getName(),
+                user.getBirth(),
+                user.getNickName()
+        );
     }
 }
 
