@@ -104,6 +104,7 @@ export const SignUpPageFunction = () => {
         } catch (error) {
             if (error.response.status === 409 && error.response) {
                  alert("이미 사용 중인 이메일입니다.");
+                setSignUpForm((prevState)=>({...prevState,email : ""}));
 
             } else {
                 console.error("서버 요청 오류:", error);
