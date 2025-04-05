@@ -9,32 +9,37 @@ export const LoginPageFunction = () => {
     const navigate = useNavigate();
 
     // 이메일, 비번
-    const [email, setEmail] = useState('');
-    const [pw, setPw] = useState('');
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
 
-
-    /*
-    // 이메일 유효성 검사
+    // 이메일 유효성 검사 상태
     const [isEmail, setIsEmail] = useState(false);
-     */
 
     // 오류메시지
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState("");
 
 
     // email 필드 값이 바뀔때마다 호출되는 함수
     const handlerEmail = (e) => {
-        setEmail(e.target.value);
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        emailForm(emailValue);
     };
 
-    /*
+
     // 이메일 유효성 검사 함수
     const emailForm = (email) => {
         const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-        return emailRegex.test(email);
-    };
 
-     */
+        if(!emailRegex.test(email)){
+            setIsEmail(false);
+            setErrorMessage("이메일 형식으로 적어주세요.");
+        }
+        else{
+            setIsEmail(true);
+            setErrorMessage('');
+        }
+    };
 
     // pw 필드 값이 바뀔때마다 호출되는 함수
     const handlerPw =(e) => {
@@ -47,8 +52,8 @@ export const LoginPageFunction = () => {
 
         try {
             const loginResponse = await axios.post("/api/login", {
-              email: email,
-              pw: pw
+                email: email,
+                pw: pw
             });
 
 
@@ -58,7 +63,6 @@ export const LoginPageFunction = () => {
             }
             else if(loginResponse.status === 401) { // 백엔드로부터 받기
                 alert("아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.")
-                // 로그인 화면 유지
             }
         }
         catch (error) {
@@ -73,11 +77,10 @@ export const LoginPageFunction = () => {
             pw={pw}
             handlerEmail={handlerEmail}
             handlerPw={handlerPw}
-            //errorMessage={errorMessage}
+            errorMessage={errorMessage}
             loginButton={loginButton}
-            //emailForm={emailForm}
         />
     );
-}
+};
 
 export default LoginPageFunction;

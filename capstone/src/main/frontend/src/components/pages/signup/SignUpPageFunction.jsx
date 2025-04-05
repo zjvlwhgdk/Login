@@ -28,12 +28,13 @@ export const SignUpPageFunction = () => {
         nickName: ""
     });
 
-    // 이메일, 비밀번호, 비밀번호 확인, 생년월일 유효성 검사
+    // 이메일, 비밀번호, 비밀번호 확인, 생년월일 유효성 검사 상태
     const [isValid, setIsValid] = useState({
         isEmail: false,
         isPw: false,
         isPwConfirm: false,
         isBirth: false,
+        // isNickname: false => 얘 유효성 검사 상태는 안나타내도 될듯...?
     });
 
     // 오류메시지
@@ -42,34 +43,31 @@ export const SignUpPageFunction = () => {
         pwErrorMessage: "",
         pwConfirmErrorMessage: "",
         birthErrorMessage: "",
-        emailExistenceMessage: ""
+        nicknameErrorMessage: ""
     });
 
     // 입력 값을 상태에 저장
     const handlerChange = (e) => {
 
-        const {name,value} = e.target;
-        setSignUpForm((prevState)=>({...prevState,[name] : value}));
+        const {inputName,value} = e.target;
+        setSignUpForm((prevState)=>({...prevState,[inputName] : value}));
 
-        if(name==="email"){
+        if(inputName==="email"){
             checkValidEmail(value);
         }
-        else if (name==="pw"){
+        else if (inputName==="pw"){
             checkValidPw(value);
         }
-        else if (name==="pwConfirm"){
+        else if (inputName==="pwConfirm"){
             checkValidConfirmPw(value);
         }
-        else if (name==="birth"){
+        else if (inputName==="birth"){
             checkValidBirth(value);
         }
 
-        /*
-        // 닉네임을 입력 안하면 자동으로 이름으로 채우기
-        else if (name==="name" && !signUpForm.nickName) {
-            setSignUpForm((prevState) => ({...prevState, nickName: value}))
+        else if (inputName==="nickName") {
+            checkValidNickname(value);
         }
-         */
 
     };
 
@@ -102,13 +100,12 @@ export const SignUpPageFunction = () => {
                     email: signUpForm.email
                 }
             });
-            // console.log(response);
 
-            if(emailResponse.status === 201) { // 백엔드에서 사용 가능한 아이디일 경우 : (숫자) 반환
+            if(emailResponse.status === 201) {
                 setErrorMessage((prevState) =>
                     ({...prevState, emailExistenceMessage: "사용 가능한 이메일입니다."}));
             }
-            else if(emailResponse.status === 409) { // 백엔드에서 사용 불가능한 아이디일 경우 : (숫자) 반환
+            else if(emailResponse.status === 409) {
                 setErrorMessage((prevState) =>
                     ({...prevState,emailExistenceMessage: "이미 사용 중인 이메일입니다."}));
             }
@@ -140,7 +137,7 @@ export const SignUpPageFunction = () => {
         if(confirmPw !== signUpForm.pw) {
             setIsValid(prevState => ({...prevState, isPwConfirm : false}));
             setErrorMessage((prevState) =>
-                ({...prevState,pwConfirmErrorMessage: "비밀번호가 일치하지 않습니다" }))
+                ({...prevState,pwConfirmErrorMessage: "비밀번호가 일치하지 않습니다" }));
         }
         else {
             setIsValid(prevState => ({ ...prevState, isPwConfirm: true }));
@@ -163,6 +160,16 @@ export const SignUpPageFunction = () => {
         }
     };
 
+    // 닉네임 유효성 검사
+    const checkValidNickname = (name, nickName) => {
+        if(!nickName.trim()) {
+            return name;
+        }
+        else {
+            return nickName;
+        }
+    };
+
 
 
     // 회원가입 버튼
@@ -179,19 +186,15 @@ export const SignUpPageFunction = () => {
             });
 
             if(signUpData.status===201) {
-                // 서버에서 잘 도착했다는 응답 코드 추가
                 alert("회원가입을 성공하였습니다.");
+                navigate("/loginPage");
             }
-            
-
-            // 로그인 페이지 이동
-            navigate("/loginPage");
         }
         catch (error) {
-            console.error("회원가입 오류", error);
+            console.error("서버 요청 오류", error);
             alert("회원가입에 실패했습니다. 다시 시도해주세요.");
         }
-    }
+    };
 
 
 
@@ -204,7 +207,7 @@ export const SignUpPageFunction = () => {
             signUpBt={signUpBt}
         />
     );
-}
+};
 
 export default SignUpPageFunction;
 

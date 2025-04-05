@@ -40,6 +40,12 @@ a {
     color: #333;
 }
 
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 .login-button {
     width: 100%;
     padding: 15px;
@@ -58,18 +64,7 @@ a {
     background-color: #5a56e2;
 }
 
-
-button[type="button"] {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #dadada;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button[type="button"]:hover {
-    background-color: #e0e0e0;
+.login-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }

@@ -66,7 +66,7 @@ export const SignUpPage = ({ signUpForm, handlerChange, errorMessage, checkEmail
                 {errorMessage.birthErrorMessage && <div className="error-message">{errorMessage.birthErrorMessage}</div>}
             </div>
             <div className="content">
-                <label className="input-label">닉네임 (선택사항)</label>
+                <label className="input-label">닉네임 (입력안할 시 "이름"으로 자동 부여됩니다.) </label>
                 <input
                     type="text"
                     name="nickName"
@@ -78,7 +78,7 @@ export const SignUpPage = ({ signUpForm, handlerChange, errorMessage, checkEmail
             <div className="content">
                 <button className="join-button"
                         type="submit"
-                        disabled={!signUpForm.email || !signUpForm.pw || !signUpForm.name || !signUpForm.birth || !signUpForm.nickName}
+                        disabled={!signUpForm.email || !signUpForm.pw || !signUpForm.name || !signUpForm.birth}
                 >회원가입</button>
             </div>
         </form>
