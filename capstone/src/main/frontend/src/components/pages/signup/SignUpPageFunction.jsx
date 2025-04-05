@@ -49,23 +49,23 @@ export const SignUpPageFunction = () => {
     // 입력 값을 상태에 저장
     const handlerChange = (e) => {
 
-        const {inputName,value} = e.target;
-        setSignUpForm((prevState)=>({...prevState,[inputName] : value}));
+        const {name,value} = e.target;
+        setSignUpForm((prevState)=>({...prevState,[name] : value}));
 
-        if(inputName==="email"){
+        if(name==="email"){
             checkValidEmail(value);
         }
-        else if (inputName==="pw"){
+        else if (name==="pw"){
             checkValidPw(value);
         }
-        else if (inputName==="pwConfirm"){
+        else if (name==="pwConfirm"){
             checkValidConfirmPw(value);
         }
-        else if (inputName==="birth"){
+        else if (name==="birth"){
             checkValidBirth(value);
         }
 
-        else if (inputName==="nickName") {
+        else if (name==="nickName") {
             checkValidNickname(value);
         }
 
